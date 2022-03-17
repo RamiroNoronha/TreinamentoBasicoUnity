@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     private Rigidbody playerRb;
-    private float speed = 5.0f;
+    public float speed = 10.0f;
     private bool isOnGround;
     private float zBound = 9.5f;
 
@@ -32,6 +32,10 @@ public class PlayerController : MonoBehaviour
         {
             isOnGround = true;
             Debug.Log("Colidiu");
+        }
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+            Debug.Log("Player has collider with enemy");
         }
     }
 
@@ -69,4 +73,14 @@ public class PlayerController : MonoBehaviour
             transform.position = new Vector3(transform.position.x, transform.position.y, zBound);
         }
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Powerup"))
+        {
+            Destroy(other.gameObject);
+        }
+    }
+
+
 }
